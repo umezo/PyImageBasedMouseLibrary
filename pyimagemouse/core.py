@@ -1,6 +1,6 @@
 import time
 from pymouse import PyMouse
-from PIL import ImageGrab
+import os
 
 def click( point , waitTime = 500 ):
   PyMouse().click( point[0] , point[1] )
@@ -12,7 +12,7 @@ def move( point , waitTime = 500 ):
   time.sleep( waitTime * 0.001 )
 
 def capture( path ):
-  ImageGrab.grab().save( path , "PNG" );
+  os.system( "screencapture -x %s" % path )
 
 
 import cv
