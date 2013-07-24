@@ -5,6 +5,17 @@ import time
 
 SCREEN_CAPTURE_PATH = None
 
+def waitFor(templatePath,timeout=5000):
+  point = getPoint(templatePath,True)
+  start = time.time() * 1000 
+  while( not point ):
+    time.sleep(0.1)
+    point = getPoint( templatePath , True )
+
+    if time.time() * 1000 - start > timeout:
+      raise ValueError( "timeout: %s" % templatePath )
+
+
 ############################################################################
 # スクリーンキャプチャからテンプレート画像の座標を返す
 # @param templatePath {String} テンプレート画像
