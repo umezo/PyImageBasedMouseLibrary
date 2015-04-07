@@ -1,18 +1,15 @@
-import time
-from pymouse import PyMouse
-from PIL import ImageGrab
+from robot import DefaultCoreRobot
 
-def click( point , waitTime = 500 ):
-  PyMouse().click( point[0] , point[1] )
-  time.sleep( waitTime * 0.001 )
+robot = DefaultCoreRobot()
+def click(point, waitTime=500):
+  robot.click(point, waitTime)
 
+def move(point, waitTime=500):
+  robot.move(point, waitTime)
 
-def move( point , waitTime = 500 ):
-  PyMouse().move( point[0] , point[1] )
-  time.sleep( waitTime * 0.001 )
+def capture(path):
+  robot.capture(path)
 
-def capture( path ):
-  ImageGrab.grab().save( path , "PNG" );
 
 
 import cv
