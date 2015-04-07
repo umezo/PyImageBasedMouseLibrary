@@ -1,6 +1,7 @@
-from robot import DefaultCoreRobot
+from robot import PILCoreRobot
 
-robot = DefaultCoreRobot()
+robot = PILCoreRobot()
+
 def click(point, waitTime=500):
   robot.click(point, waitTime)
 
@@ -17,7 +18,13 @@ import logging as logger
 
 
 def detect ( templatePath, targetPath, threshold = 0.8 ):
-
+  """
+  targetPathで指定される画像からtemplatePathで指定される画像の座標を返す
+  @param templatePath {String} 探索対象画像
+  @param targetPath {String} 探索範囲画像
+  @param threshold=0.8 {Number} マッチ度の閾値
+  @return {Tuple} or False テンプレートの中心座標。threshold以上の座標がなければFalse
+  """
   target = cv.LoadImage( targetPath )
   template = cv.LoadImage( templatePath )
 

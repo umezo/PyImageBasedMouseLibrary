@@ -3,14 +3,19 @@
 import core
 import time
 
-SCREEN_CAPTURE_PATH = None
+import tempfile
+
+SCREEN_CAPTURE_PATH = tempfile.gettempdir() + '/screenshot.png'
 
 ############################################################################
-# スクリーンキャプチャからテンプレート画像の座標を返す
-# @param templatePath {String} テンプレート画像
-# @param skip=False {Boolean} テンプレート画像が見つからなかった時に例外にするかどうか. Trueだと例外は投げられない
-# @return {Tuple} or False テンプレートの中心座標。パラメータskipがTrueでテンプレートが見つからなかったときFalse
 def getPoint(templatePath,skip=False):
+  """
+  通常、パッケージ外からこの関数を直接コールすることはない
+  スクリーンキャプチャからテンプレート画像の座標を返す
+  @param templatePath {String} テンプレート画像
+  @param skip=False {Boolean} テンプレート画像が見つからなかった時に例外にするかどうか. Trueだと例外は投げられない
+  @return {Tuple} or False テンプレートの中心座標。パラメータskipがTrueでテンプレートが見つからなかったときFalse
+  """
   captureScreen()
   point = core.detect( templatePath , SCREEN_CAPTURE_PATH )
 
@@ -18,15 +23,17 @@ def getPoint(templatePath,skip=False):
     if skip:
       return False
     else:
-      raise ValueError( templatePath )
+      raise ValueError( templatePath+' did not found in screen')
 
   return point
 
-# スクリーンキャプチャからテンプレート画像の位置をクリックします
-# @param templatePath {String} テンプレート画像
-# @param skip=False {Boolean} テンプレート画像が見つからなかった時に例外にするかどうか. Trueだと例外は投げられない
-# @return {Boolean} クリックをスキップしたかどうか. skipしてればTrue = clickしたらFalse
 def click( templatePath ,skip=False):
+  """
+  スクリーンキャプチャからテンプレート画像の位置をクリックします
+  @param templatePath {String} テンプレート画像。クリックする対象の画像
+  @param skip=False {Boolean} テンプレート画像が見つからなかった時に例外にするかどうか. Trueだと例外は投げられない
+  @return {Boolean} クリックをスキップしたかどうか. skipしてればTrue = clickしたらFalse
+  """
   point = getPoint( templatePath, skip )
 
   if not point:
@@ -42,11 +49,13 @@ def click( templatePath ,skip=False):
   time.sleep( 0.2 )
   return False
 
-# スクリーンキャプチャからテンプレート画像の位置にマウスを移動する
-# @param templatePath {String} テンプレート画像
-# @param skip=False {Boolean} テンプレート画像が見つからなかった時に例外にするかどうか. Trueだと例外は投げられない
-# @return {Boolean} 移動をスキップしたかどうか. skipしてればTrue = moveしたらFalse
 def move( templatePath ,skip=False):
+  """
+  スクリーンキャプチャからテンプレート画像の位置にマウスを移動する
+  @param templatePath {String} テンプレート画像。クリックする対象の画像
+  @param skip=False {Boolean} テンプレート画像が見つからなかった時に例外にするかどうか. Trueだと例外は投げられない
+  @return {Boolean} 移動をスキップしたかどうか. skipしてればTrue = moveしたらFalse
+  """
   point = getPoint( templatePath, skip )
 
   if not point:
@@ -55,10 +64,12 @@ def move( templatePath ,skip=False):
   core.move( point )
   return False
 
-# templatePathで指定された画像がスクリーンキャプチャに存在するかどうか返す
-# @param templatePath {String} テンプレート画像
-# @return {Boolean} テンプレートが存在したかどうか
 def detect(templatePath):
+  """
+  templatePathで指定された画像がスクリーンキャプチャに存在するかどうか返す
+  @param templatePath {String} テンプレート画像
+  @return {Boolean} テンプレートが存在したかどうか
+  """
   point = getPoint( templatePath , True )
 
   if not point:
@@ -66,7 +77,10 @@ def detect(templatePath):
   else:
     return True
 
-# 画面をキャプチャする
 def captureScreen():
+  """
+  通常、パッケージ外からこの関数を直接コールすることはない
+  画面をキャプチャする
+  """
   core.capture( SCREEN_CAPTURE_PATH )
 
