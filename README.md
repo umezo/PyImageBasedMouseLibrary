@@ -18,11 +18,11 @@ emulate mouse pointing operation by image like button, logo, checkbox and more.
 
 # Install
 - install requirements
- - PyUserInput
- - PyScreenShot
-  - PIL or pillow
-  - one on PyScreenShot backends 
- - OpenCV
+    - PyUserInput
+    - PyScreenShot
+        - PIL or pillow
+        - one on PyScreenShot backends 
+    - OpenCV
 
 ```
 python setup.py install
@@ -32,10 +32,6 @@ python setup.py install
 
 ``` python
 from pyimagemouse import batch
-from pyimagemouse import core
-from pyimagemouse import robot
-
-core.robot = robot.PILCoreRobot()
 
 batch.click('path/to/button.png')
 ```
