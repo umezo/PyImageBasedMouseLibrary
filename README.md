@@ -30,7 +30,7 @@ python setup.py install
 
 # Usage
 
-```
+``` python
 from pyimagemouse import batch
 from pyimagemouse import core
 from pyimagemouse import robot
